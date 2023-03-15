@@ -3,6 +3,7 @@ pipeline {
     stages {
         stage('Build') { 
             steps {
+                
                 // 
             }
         }
@@ -13,6 +14,13 @@ pipeline {
         }
         stage('Deploy') { 
             steps {
+                sh 'ssh -o StrictHostkeyChecking=no larry@100.27.38.133 "cd /var/www/html; \ 
+                cd my_new_poject; \
+                git pull origin master; \
+                php artisan migrate --force; \
+                php artisan cache:clear; \
+                php artisan config:cache; \
+                "' 
                 // 
             }
         }
